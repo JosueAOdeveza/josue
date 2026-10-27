@@ -137,8 +137,8 @@ do
     fg = p.fg,
   })
 
-  hl("NonText", { fg = p.gray_02 })
-  hl("Whitespace", { fg = p.gray_02 })
+  hl("NonText", { fg = p.gray_07 })
+  hl("Whitespace", { fg = p.gray_07 })
   hl("RedundantWhitespace", { bg = p.gray_03, underline = true, sp = p.red })
   hl("EndOfBuffer", { fg = p.gray_01 })
   hl("SpecialKey", { fg = p.gray_08 })
