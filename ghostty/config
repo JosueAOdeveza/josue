@@ -3,7 +3,7 @@ theme = omtheme
 
 # Font
 font-family = "FiraCode Nerd Font"
-font-size = 24
+font-size = 20
 # Disable Ligatures completely
 font-feature = -calt
 font-feature = -dlig
