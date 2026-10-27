@@ -27,6 +27,12 @@ macos-window-buttons = visible
 background-opacity = 0.85
 background-blur = true
 
+# Machine-local overrides (untracked). Ghostty has no per-OS conditionals, so
+# desktops without blur support (e.g. GNOME) can set an opaque background here:
+#   background-opacity = 1
+#   background = #14161f
+config-file = ?local.conf
+
 # Novo atalho: Minimiza a janela em vez de usar o toggle_quick_terminal
 # O AltTab detecta perfeitamente janelas minimizadas
 # keybind = global:cmd+grave_accent=minimize
