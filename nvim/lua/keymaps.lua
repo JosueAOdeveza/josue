@@ -90,6 +90,15 @@ map(
   { desc = "AutoSession Save" }
 )
 
+-- File tree (nvim-tree)
+map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
+map(
+  "n",
+  "<leader>E",
+  "<cmd>NvimTreeFindFile<CR>",
+  { desc = "Reveal current file in tree" }
+)
+
 -- Buffers
 map("n", "<leader><tab>", "<C-^>", { desc = "Toggle last buffer" })
 map("n", "<Tab>", ":bnext<CR>", opts)
