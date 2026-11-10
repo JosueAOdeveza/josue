@@ -21,7 +21,7 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
-vim.opt.mouse = ""
+vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 
 -- Clipboard

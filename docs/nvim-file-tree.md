@@ -8,6 +8,6 @@ on the left. It replaces netrw, so `nvim .` opens the tree too.
   `<CR>` open, `H` toggle dotfiles).
 - Dotfiles and gitignored files are shown; only `.git` is hidden.
 - Icons need a Nerd Font in the terminal (Ghostty uses FiraCode Nerd Font).
-- `vim.opt.mouse` is empty, so the tree is keyboard-only.
+- Mouse is enabled (`vim.opt.mouse = "a"`): click to open files and folders.
 - auto-session closes the tree before saving, so restored sessions do not keep
   an empty tree buffer.
