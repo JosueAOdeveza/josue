@@ -1283,6 +1283,43 @@ class InstallPlatformTests(unittest.TestCase):
         (Path(tmp) / ".local/bin/bat").readlink(), Path("/usr/bin/batcat")
       )
 
+  def test_ubuntu_installs_ghostty_only_when_apt_has_a_candidate(self):
+    source = (ROOT / "install.sh").read_text()
+    setup = source.split('install_platform_packages "$OP_SYSTEM"', 1)[1].split(
+      'loginfo "Configurando Oh My Zsh..."', 1
+    )[0]
+    for candidate, expected in (
+      ("1.3.0~us1-0ubuntu1.1", True),
+      ("(none)", False),
+    ):
+      with self.subTest(candidate=candidate), tempfile.TemporaryDirectory() as tmp:
+        result = self.shell(
+          f"""
+          set -Eeuo pipefail
+          OP_SYSTEM=ubuntu
+          HOME=$2
+          loginfo() {{ printf 'log %s\\n' "$*"; }}
+          sudo() {{ printf 'sudo %s\\n' "$*"; }}
+          locale() {{ printf 'en_US.utf8\\n'; }}
+          apt-cache() {{ printf '  Candidate: {candidate}\\n'; }}
+          getent() {{ printf 'user:x:1000:1000::/home/user:/usr/bin/zsh\\n'; }}
+          command() {{
+            case "$*" in
+              '-v zsh') printf '/usr/bin/zsh\\n' ;;
+              '-v '*) printf '/usr/bin/x\\n' ;;
+              *) return 99 ;;
+            esac
+          }}
+          """
+          + setup,
+          tmp,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        installed = "apt-get install -y ghostty" in result.stdout
+        self.assertEqual(installed, expected, result.stdout)
+        if not expected:
+          self.assertIn("Ghostty", result.stdout)
+
   def test_platform_table_can_add_an_apt_distro_without_shell_changes(self):
     with tempfile.TemporaryDirectory() as tmp:
       root = Path(tmp)

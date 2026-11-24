@@ -161,6 +161,13 @@ if [[ "$OP_SYSTEM" == "ubuntu" ]]; then
     sudo locale-gen en_US.UTF-8
   fi
   sudo update-locale LANG=en_US.UTF-8
+
+  # Ubuntu 26.04+ ships Ghostty in universe; older releases are skipped.
+  if apt-cache policy ghostty 2> /dev/null | grep -Eq 'Candidate: [^(]'; then
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y ghostty
+  else
+    loginfo "Ghostty não está disponível no APT desta versão do Ubuntu; pulando."
+  fi
 fi
 
 if [[ "$(install_package_manager "$OP_SYSTEM")" == apt ]]; then
@@ -181,7 +188,7 @@ if [[ "$OP_SYSTEM" != "darwin" ]]; then
   if [[ "$(getent passwd "$(id -un)" | cut -d: -f7)" != "$zsh_path" ]]; then
     run_install_privileged "$OP_SYSTEM" chsh -s "$zsh_path" "$(id -un)"
   fi
-  # Linux hosts keep their installed terminal; only Ubuntu adjusts the locale.
+  # Only Ubuntu adjusts the locale and installs Ghostty from its own archive.
 fi
 
 loginfo "Configurando Oh My Zsh..."

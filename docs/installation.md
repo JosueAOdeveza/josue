@@ -111,9 +111,11 @@ For a distro using an existing backend (`apt`, `dnf`, `pacman`):
 
 Ubuntu's locale setup remains an explicit Ubuntu-only exception in `install.sh`;
 the `fd`/`bat` command-name compatibility links apply to APT hosts. New distros
-otherwise keep their system locale. Ghostty is neither installed nor required on
-Linux; its configuration is still linked for users who install it separately.
-The macOS cask is unchanged.
+otherwise keep their system locale. On Ubuntu, Ghostty is installed from the
+official archive (`universe`, Ubuntu 26.04+) when APT has a candidate; older
+releases skip it. Other Linux platforms neither install nor require Ghostty; its
+configuration is still linked for users who install it separately. The macOS
+cask is unchanged.
 
 ## Debian
 
@@ -161,8 +163,8 @@ under `~/.dotfiles-backups/`. This is not a transparent addition to Omarchy's
 shell/editor defaults. It does not replace Bash configuration, but the existing
 nvm bootstrap may append initialization to a shell profile (including `.bashrc`
 when launched from Bash). Locale, Hyprland, boot, services, distro repositories
-and the installed desktop terminal are left alone. No Linux platform runs a
-Ghostty installer.
+and the installed desktop terminal are left alone. Only Ubuntu installs Ghostty,
+and only from its own APT archive.
 
 ## Alpine
 
