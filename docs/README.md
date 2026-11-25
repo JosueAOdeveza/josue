@@ -17,6 +17,7 @@ maintenance guidance.
 
 - [Installer maintenance and package catalog](installation.md)
 - [Development tools](development.md)
+- [Neovim debugging (nvim-dap)](nvim-debugging.md)
 - [Shared host paths](shared-host-paths.md)
 - [Zsh environment and startup order](zsh-environment.md)
 - [Pi Coding Agent configuration](pi.md)

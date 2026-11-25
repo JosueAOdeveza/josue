@@ -155,6 +155,7 @@ for _, alpine in ipairs({ true, false }) do
   if not alpine then
     table.insert(expected, "stylua")
   end
+  vim.list_extend(expected, { "debugpy", "js-debug-adapter" })
   table.sort(expected)
   assert(
     vim.deep_equal(requested, expected),

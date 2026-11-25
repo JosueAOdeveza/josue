@@ -30,7 +30,11 @@ M.mason_lsp_servers = vim.tbl_filter(function(server)
   return not M.is_alpine or not native_lsp_servers[server]
 end, M.lsp_servers)
 
-M.mason_tools = M.is_alpine and {} or { "stylua" }
+-- Debug adapters are portable (Python/JavaScript), so Alpine uses Mason too.
+M.mason_tools = vim.list_extend(
+  M.is_alpine and {} or { "stylua" },
+  { "debugpy", "js-debug-adapter" }
+)
 
 M.treesitter_parsers = {
   "c",

@@ -99,6 +99,29 @@ map(
   { desc = "Reveal current file in tree" }
 )
 
+-- Debugging (nvim-dap); requiring "dap" lazy-loads the plugin.
+local function dap(method, ...)
+  local args = { ... }
+  return function()
+    require("dap")[method](unpack(args))
+  end
+end
+map("n", "<F5>", dap("continue"), { desc = "Debug: start/continue" })
+map("n", "<F10>", dap("step_over"), { desc = "Debug: step over" })
+map("n", "<F11>", dap("step_into"), { desc = "Debug: step into" })
+map("n", "<F12>", dap("step_out"), { desc = "Debug: step out" })
+map("n", "<leader>db", dap("toggle_breakpoint"), { desc = "Toggle breakpoint" })
+map("n", "<leader>dB", function()
+  require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { desc = "Conditional breakpoint" })
+map("n", "<leader>dc", dap("run_to_cursor"), { desc = "Debug: run to cursor" })
+map("n", "<leader>dl", dap("run_last"), { desc = "Debug: rerun last" })
+map("n", "<leader>dx", dap("terminate"), { desc = "Debug: stop" })
+map("n", "<leader>dr", dap("repl_open"), { desc = "Debug: open REPL" })
+map("n", "<leader>du", function()
+  require("dapui").toggle()
+end, { desc = "Debug: toggle UI" })
+
 -- Buffers
 map("n", "<leader><tab>", "<C-^>", { desc = "Toggle last buffer" })
 map("n", "<Tab>", ":bnext<CR>", opts)
